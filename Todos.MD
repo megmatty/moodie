@@ -1,12 +1,12 @@
-//To Dos/Ideas
+### To Dos Ideas
 
-//3 collection approach
-//emojis for moods/activities
+#### 3 collection approach
+#### emojis for moods/activities
 
-//authentication 
+#### authentication 
 
-//wireframing
+#### wireframing
 
 
-//Client side
-//Server side
+#### Client side
+#### Server side
