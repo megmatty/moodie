@@ -17,6 +17,11 @@ export default (state = initialState, action) => {
         ...state,
         mood: state.user + 1
       }
+    case 'FIND_ALL':
+      return {
+        ...state,
+        entries: action.payload.entries
+      }
 
     default:
       return state
@@ -27,7 +32,7 @@ export default (state = initialState, action) => {
 export const sendEntry = (entries) => {
   console.log('hired');
   return (dispatch) => {
-    axios.post(`${API_URL}/api/chat`, {
+    axios.post(`${API_URL}/api`, {
       'entries': entries 
     })
       .then((response) => {
@@ -43,3 +48,37 @@ export const sendEntry = (entries) => {
     });
   }
 }
+
+//action findall
+export const findAll = (entries) => {
+   console.log('banana');
+  return (dispatch) => {
+    axios.get(`${API_URL}/entries`)
+      .then((response) => {
+        console.log(response);
+
+          dispatch({
+            type: 'FIND_ALL',
+            payload: response.data
+          })
+      })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

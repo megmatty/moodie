@@ -11,8 +11,7 @@ import { increment } from '../../users/userreducer';
 
 const Home = props => (
   <div>
-    <h1>Home {props.mood}</h1>
-    <p>Count: {props.count}</p>
+    <h1>Home </h1>
 
     <p>
       <button onClick={props.increment} disabled={props.isIncrementing}>Increment</button>
@@ -31,8 +30,7 @@ const Home = props => (
 const mapStateToProps = state => ({
   count: state.counter.count,
   isIncrementing: state.counter.isIncrementing,
-  isDecrementing: state.counter.isDecrementing,
-  mood: state.moodreducer.mood
+  isDecrementing: state.counter.isDecrementing
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({

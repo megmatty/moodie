@@ -1,8 +1,10 @@
 import React, { Component }  from 'react';
 import ReactDOM from "react-dom";
+import { Link } from 'react-router-dom'
 import { sendEntry } from '../../entries/newentries';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
 
 class Entries extends Component {
 	constructor(props) {
@@ -12,12 +14,12 @@ class Entries extends Component {
 			activity: '',
 			journal: ''
 		}
-
 	}
 
 	handleSubmit = (formSubmitEvent) => {
 		formSubmitEvent.preventDefault();
 		this.props.sendEntry(this.state);
+		this.props.changePage();
 	}
 
 	handleSelect = (changeEvent) => {
@@ -37,7 +39,6 @@ class Entries extends Component {
       journal: changeEvent.target.value
     });
 	}
-
 
 	render() {
 		return(
@@ -78,7 +79,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  sendEntry
+  sendEntry,
+  changePage: () => push('/dashboard')
 }, dispatch)
 
 export default connect(

@@ -1,7 +1,7 @@
 const Conversation = require('../models/conversation'),
   Message = require('../models/message'),
-  User = require('../models/user'),
-  Entry = require('../models/moods');
+  User = require('../models/user');
+  
 
 exports.getConversations = function (req, res, next) {
   // Only return one message from each conversation to display as snippet
@@ -109,16 +109,6 @@ exports.sendReply = function (req, res, next) {
 
     return res.status(200).json({ message: 'Reply successfully sent!' });
   });
-};
-
-
-exports.mood = function(req, res, next) {
-  console.log('tangerine');
-  console.log(req.body);
-  let entry = new Entry(req.body.entries);
-  console.log(entry);
-  entry.save();
-  return res.status(200).json({ message: 'happy happy' });
 };
 
 

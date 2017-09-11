@@ -1,6 +1,9 @@
 const AuthenticationController = require('./controllers/authentication');
 const UserController = require('./controllers/user');
 const ChatController = require('./controllers/chat');
+
+const EntryController = require('./controllers/entries');
+
 const CommunicationController = require('./controllers/communication');
 const StripeController = require('./controllers/stripe');
 const express = require('express');
@@ -69,57 +72,21 @@ module.exports = function (app) {
     res.send({ content: 'Admin dashboard is working.' });
   });
 
-  //= ========================
-  // Chat Routes
-  //= ========================
 
-  // Set chat routes as a subgroup/middleware to apiRoutes
-  apiRoutes.use('/chat', chatRoutes);
 
-  // View messages to and from authenticated user
-  chatRoutes.get('/', ChatController.getConversations);
 
-  // Retrieve single conversation
-  chatRoutes.get('/:conversationId', requireAuth, ChatController.getConversation);
-
-  // Send reply in conversation
-  chatRoutes.post('/:conversationId', requireAuth, ChatController.sendReply);
-
-  // Start new conversation
-  chatRoutes.post('/new/:recipient', requireAuth, ChatController.newConversation);
-
-  //= ========================
-  // Payment Routes
-  //= ========================
-  // apiRoutes.use('/pay', payRoutes);
-
-  // // Webhook endpoint for Stripe
-  // payRoutes.post('/webhook-notify', StripeController.webhook);
-
-  // // Create customer and subscription
-  // payRoutes.post('/customer', requireAuth, StripeController.createSubscription);
-
-  // // Update customer object and billing information
-  // payRoutes.put('/customer', requireAuth, StripeController.updateCustomerBillingInfo);
-
-  // // Delete subscription from customer
-  // payRoutes.delete('/subscription', requireAuth, StripeController.deleteSubscription);
-
-  // // Upgrade or downgrade subscription
-  // payRoutes.put('/subscription', requireAuth, StripeController.changeSubscription);
-
-  // // Fetch customer information
-  // payRoutes.get('/customer', requireAuth, StripeController.getCustomer);
-
-  //= ========================
-  // Communication Routes
-  //= ========================
-  apiRoutes.use('/communication', communicationRoutes);
-
-  // Send email from contact form
-  communicationRoutes.post('/contact', CommunicationController.sendContactForm);
+//Our routes
 
   // Set url for API group routes
   // app.use('/api', apiRoutes);
-  app.use('/api', ChatController.mood);
+  app.post('/api', EntryController.addEntry);
+
+  app.get('/entries', EntryController.findAllEntries);
+
+
+
+
+
+
+
 };
