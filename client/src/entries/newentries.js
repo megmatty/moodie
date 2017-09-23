@@ -75,24 +75,59 @@ export const findAll = (entries) => {
 
 function countKeys(yourArray) {
   let counter = {};
+  let array = [];
 
+//something is wrong here
   yourArray.forEach(function(obj) {
       if (obj.mood && obj.mood != '' && obj.mood.length > 0) {
-        var key = JSON.stringify(obj.mood);
-        console.log(key);
-        counter[key] = (counter[key] || 0) + 1;
+        console.log(obj.mood);
+        // const object = {'mood': 'happy', 'value': 45}
+       for (var i = 0; i < array.length + 1; i++) {
+          if (array[i] && obj.mood === array[i].mood  ) {
+            array[i].value++;
+            break;
+          }
+          if (array.length === i) {
+            array.push({'mood': obj.mood, 'value': 1});
+            break;
+          }
+       } 
+
       }
   });
-  var op = [];
-  Object.keys(counter).forEach(function(key) {
-    var obj = {};
-    obj[key] = counter[key];
-    op.push(obj); //push newly created object in `op`array
-  });
-  console.log(op);
-  return op;
+  return array;
 }
+//let innerObj = array[i];
+          // if (!innerObj) {
+          //   return;
+          // }
+          // console.log(innerObj.mood);
+          // if (innerObj.mood === obj.mood) {
+          //   innerObj.value++;
+          //   break;
+          // } else if (array.length === i + 1) {
+          //   array.push({'mood': obj.mood, 'value': 1});
+          //   break;
+          // }
+// function countKeys(yourArray) {
+//   let counter = {};
 
+//   yourArray.forEach(function(obj) {
+//       if (obj.mood && obj.mood != '' && obj.mood.length > 0) {
+//         var key = JSON.stringify(obj.mood);
+//         console.log(key);
+//         counter[key] = (counter[key] || 0) + 1;
+//       }
+//   });
+//   var op = [];
+//   Object.keys(counter).forEach(function(key) {
+//     var obj = {};
+//     obj[key] = counter[key];
+//     op.push(obj); //push newly created object in `op`array
+//   });
+//   console.log(op);
+//   return op;
+// }
 
 
 
