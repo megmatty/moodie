@@ -11,6 +11,7 @@ const initialState = {
 
 //reducer
 export default (state = initialState, action) => {
+  console.log(action);
   switch (action.type) {
     case 'INCREMENT':
       return {
@@ -20,7 +21,8 @@ export default (state = initialState, action) => {
     case 'FIND_ALL':
       return {
         ...state,
-        entries: action.payload.entries
+        entries: action.payload.entries,
+        pieData: action.moodCount
       }
 
     default:
@@ -57,9 +59,12 @@ export const findAll = (entries) => {
       .then((response) => {
         console.log(response);
 
+        let moodCount = countKeys(response.data.entries, 'mood');
+        console.log(moodCount);
           dispatch({
             type: 'FIND_ALL',
-            payload: response.data
+            payload: response.data,
+            moodCount: moodCount
           })
       })
     .catch(function (error) {
@@ -68,7 +73,25 @@ export const findAll = (entries) => {
   }
 }
 
+function countKeys(yourArray) {
+  let counter = {};
 
+  yourArray.forEach(function(obj) {
+      if (obj.mood && obj.mood != '' && obj.mood.length > 0) {
+        var key = JSON.stringify(obj.mood);
+        console.log(key);
+        counter[key] = (counter[key] || 0) + 1;
+      }
+  });
+  var op = [];
+  Object.keys(counter).forEach(function(key) {
+    var obj = {};
+    obj[key] = counter[key];
+    op.push(obj); //push newly created object in `op`array
+  });
+  console.log(op);
+  return op;
+}
 
 
 

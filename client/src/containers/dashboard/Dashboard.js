@@ -4,36 +4,13 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { findAll } from '../../entries/newentries';
-import {LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'recharts';
+
 import { PieChart, Pie, Sector, Cell } from 'recharts';
-
-const data = [
-      {name: 'Page A', uv: 4000, pv: 2400, amt: 2400},
-      {name: 'Page B', uv: 3000, pv: 1398, amt: 2210},
-      {name: 'Page C', uv: 2000, pv: 9800, amt: 2290},
-      {name: 'Page D', uv: 2780, pv: 3908, amt: 2000},
-      {name: 'Page E', uv: 1890, pv: 4800, amt: 2181},
-      {name: 'Page F', uv: 2390, pv: 3800, amt: 2500},
-      {name: 'Page G', uv: 3490, pv: 4300, amt: 2100},
-];
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 const data01 = [
   { name: 'Group A', value: 400, v: 89 },
-  { name: 'Group B', value: 300, v: 100 },
+  { mood: 'Group B', value: 300, v: 100 },
   { name: 'Group C', value: 200, v: 200 },
   { name: 'Group D', value: 200, v: 20 },
   { name: 'Group E', value: 278, v: 40 },
@@ -71,24 +48,6 @@ const data03 = [
 
 const initilaState = { data01, data02, data03 };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var pieData = [{name: 'Group A', value: 400}, {name: 'Group B', value: 300}, {name: 'Group C', value: 300}, {name: 'Group D', value: 200}];
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
 const RADIAN = Math.PI / 180;                    
@@ -124,29 +83,29 @@ class SimplePieChart  extends Component{
 		console.log(this) 
 	}
 
-	setData() {
+	setData = () => {
 		console.log('hi',this);
 		this.setState({data01:data02})
 	}
 	
 	render () {
   	return (
-		<PieChart width={800} height={400} onMouseEnter={this.onPieEnter}>
-		<Pie
-		  onClick={this.setData}
-		  data={this.state.data01} 
-		  cx={300} 
-		  cy={200} 
-		  labelLine={false}
-		  label={renderCustomizedLabel}
-		  outerRadius={80} 
-		  fill="#8884d8"
-		>
+		<PieChart width={800} height={400} onMouseEnter={this.onPieEnter} pie={this.props.pie}>
+			<Pie
+			  onClick={this.setData}
+			  data={this.props.pie} 
+			  cx={300} 
+			  cy={200} 
+			  labelLine={false}
+			  label={renderCustomizedLabel}
+			  outerRadius={80} 
+			  fill="#8884d8"
+			>
 			{
-			data.map((entry, index) => <Cell fill={COLORS[index % COLORS.length]}/>)
+			data01.map((entry, index) => <Cell fill={COLORS[index % COLORS.length]}/>)
 		  }
-		</Pie>
-	      </PieChart>
+			</Pie>
+	  </PieChart>
     );
 }}
 
@@ -176,17 +135,7 @@ class Dashboard extends Component {
 
 		return(
 			<div>
-				<LineChart width={600} height={300} data={data} margin={{top: 5, right: 30, left: 20, bottom: 5}}>
-					<XAxis dataKey="name"/>
-					<YAxis/>
-					<CartesianGrid strokeDasharray="3 3"/>
-					<Tooltip/>
-					<Legend />
-					<Line type="monotone" dataKey="pv" stroke="#8884d8" activeDot={{r: 8}}/>
-					<Line type="monotone" dataKey="uv" stroke="#82ca9d" />
-				</LineChart>
-
-				<SimplePieChart />
+				<SimplePieChart pie={this.props.pieData}/>
 
 				 <h1>Dashboard</h1>
 				 <div>
@@ -208,7 +157,8 @@ class Dashboard extends Component {
 // export default Dashboard;
 
 const mapStateToProps = state => ({
-  entries: state.newentries.entries
+  entries: state.newentries.entries,
+  pieData: state.newentries.pieData
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
