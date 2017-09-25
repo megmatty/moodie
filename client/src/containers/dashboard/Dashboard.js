@@ -7,6 +7,13 @@ import { findAll } from '../../entries/newentries';
 
 import { PieChart, Pie, Sector, Cell } from 'recharts';
 
+import * as io from 'socket.io-client'; 
+var socket = io('http://localhost:3000'); 
+
+
+
+
+
 
 const data01 = [
   { name: 'Group A', value: 400, v: 89 },
@@ -80,13 +87,20 @@ class SimplePieChart  extends Component{
 	}
 
 	componentDidMount() {
-		console.log(this) 
+		socket.on('connect', function(){   
+	  	console.log('connect');
+	  	socket.emit('chat message', 'hello world');
+	  	socket.on('new entry', function(message) {
+	    console.log('strawberry', message);
+	  });
+});
 	}
 
 	setData = () => {
 		console.log('hi',this);
-		this.setState({data01:data02})
+		// this.setState({data01:data02});
 	}
+
 	
 	render () {
   	return (
@@ -102,7 +116,7 @@ class SimplePieChart  extends Component{
 			  fill="#8884d8"
 			>
 			{
-			data01.map((entry, index) => <Cell fill={COLORS[index % COLORS.length]}/>)
+			data01.map((entry, index) => <Cell key={index} fill={COLORS[index % COLORS.length]}/>)
 		  }
 			</Pie>
 	  </PieChart>

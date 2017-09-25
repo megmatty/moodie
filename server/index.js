@@ -25,6 +25,7 @@ const io = require('socket.io').listen(server);
 
 socketEvents(io);
 
+
 // Set static file location for production
 // app.use(express.static(__dirname + '/public'));
 

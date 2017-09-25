@@ -18,7 +18,6 @@ exports.findAllEntries = function(req, res, next) {
 	      res.send({ error: err });
 	      return next(err);
 	    }
-
 	    return res.status(200).json({ entries: entries });
 	})
 }

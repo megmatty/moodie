@@ -4,7 +4,7 @@
 	* All users vs single user
 	* differences between personal and global views
 #### GET/POSTS
-	* add mood
+	* add entry
 	* homepage
 	* user profile
 
@@ -15,6 +15,13 @@
 
 #### wireframing
 
+### socket.io
+### deployment
+### tests
+
 
 #### Client side
+	* Design
 #### Server side
+
+### analytics
