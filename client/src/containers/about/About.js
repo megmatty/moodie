@@ -23,20 +23,21 @@ class Entries extends Component {
 	}
 
 	componentDidMount() {
-		socket.on('connect', function(){   
-		  console.log('connect');
-		  socket.emit('add entry', Date.now(), 'pine forest');
-		  socket.on('new entry', function(message) {
-		    console.log('strawberry', message);
-		  });
-		});
+		// socket.on('connect', function(){   
+		//   console.log('connect');
+		//   socket.emit('add entry', Date.now(), 'pine forest');
+		  // socket.on('new entry', function(message) {
+		  //   console.log('strawberry', message);
+		  // });
+		// });
 	}
 
 	handleSubmit = (formSubmitEvent) => {
 		formSubmitEvent.preventDefault();
 		this.props.sendEntry(this.state);
 		this.props.changePage();
-		socket.emit('add entry', Date.now(), 'pine forest');
+		// socket.emit('add entry', Date.now(), 'pine forest');
+		// this.props.refreshData();
 	}
 
 	handleSelect = (changeEvent) => {

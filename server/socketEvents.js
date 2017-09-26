@@ -11,7 +11,7 @@ exports = module.exports = function (io) {
 
   socket.on('add entry', (conversation) => {
     console.log('desert shade', conversation);
-    io.emit('new entry', conversation + 'iguana');
+    io.emit('new entry', conversation);
     // console.log('joined ' + conversation);
   });
 

@@ -3,16 +3,12 @@ import ReactDOM from "react-dom";
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
-import { findAll } from '../../entries/newentries';
+import { findAll, refreshData } from '../../entries/newentries';
 
 import { PieChart, Pie, Sector, Cell } from 'recharts';
 
 import * as io from 'socket.io-client'; 
 var socket = io('http://localhost:3000'); 
-
-
-
-
 
 
 const data01 = [
@@ -53,7 +49,7 @@ const data03 = [
   { name: 'F3', value: 51 },
 ];
 
-const initilaState = { data01, data02, data03 };
+const initialState = { data01, data02, data03 };
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
@@ -80,20 +76,20 @@ class SimplePieChart  extends Component{
 		// 	journal: ''
 		// }
 		this.state={
-		    ...initilaState
+		    ...initialState
 		
 		}	
 
 	}
 
 	componentDidMount() {
-		socket.on('connect', function(){   
-	  	console.log('connect');
-	  	socket.emit('chat message', 'hello world');
-	  	socket.on('new entry', function(message) {
-	    console.log('strawberry', message);
-	  });
-});
+// 		socket.on('connect', function(){   
+// 	  	console.log('connect');
+// 	  	socket.emit('chat message', 'hello world');
+// 	  	socket.on('new entry', function(message) {
+// 	    console.log('strawberry', message);
+// 	  });
+// });
 	}
 
 	setData = () => {
@@ -136,6 +132,7 @@ class Dashboard extends Component {
 
 	componentDidMount() {
 		this.props.findAll();
+		this.props.refreshData();
 	}
 
 	setRandomBarData() {
@@ -176,7 +173,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  findAll
+  findAll,
+  refreshData
   // changePage: () => push('/dashboard')
 }, dispatch)
 

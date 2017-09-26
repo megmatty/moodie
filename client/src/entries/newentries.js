@@ -1,9 +1,14 @@
 import axios from 'axios';
+import * as io from 'socket.io-client'; 
+var socket = io('http://localhost:3000'); 
 // import cookie from 'react-cookie';
 // import { logoutUser } from './auth';
 // import { STATIC_ERROR, FETCH_USER } from './types';
 export const API_URL = 'http://localhost:3000';
 export const CLIENT_ROOT_URL = 'http://localhost:8080';
+
+
+
 
 const initialState = {
   user: 0
@@ -24,9 +29,41 @@ export default (state = initialState, action) => {
         entries: action.payload.entries,
         pieData: action.moodCount
       }
-
+    case 'REALTIME_REFRESH':
+      // console.log(state);
+      console.log(action);
+      let pieData = countKeys(action.payload, state.pieData.map(a => ({...a})));
+      console.log(pieData);
+      return {
+        ...state,
+        pieData: pieData
+        // pieData: moodCount
+      }
     default:
       return state
+  }
+}
+
+
+
+const testData = [
+  {mood: "happy", value: 5},
+  {mood: "confused", value: 10},
+  {mood: "sad", value: 20}
+];
+
+export const refreshData = () => {
+  return (dispatch) => {
+    console.log('mango');
+    socket.removeListener('new entry');
+    socket.on('new entry', function(response) {
+      console.log('peach');
+      // console.log(response);
+      dispatch({
+        type: 'REALTIME_REFRESH',
+        payload: [response]
+      })
+    });
   }
 }
 
@@ -39,11 +76,8 @@ export const sendEntry = (entries) => {
     })
       .then((response) => {
         console.log(response);
+        socket.emit('add entry', entries);
 
-          dispatch({
-            type: 'INCREMENT',
-            payload: response.data
-          })
       })
     .catch(function (error) {
       console.log(error);
@@ -59,7 +93,7 @@ export const findAll = (entries) => {
       .then((response) => {
         console.log(response);
 
-        let moodCount = countKeys(response.data.entries, 'mood');
+        let moodCount = countKeys(response.data.entries);
         console.log(moodCount);
           dispatch({
             type: 'FIND_ALL',
@@ -73,14 +107,12 @@ export const findAll = (entries) => {
   }
 }
 
-function countKeys(yourArray) {
-  let counter = {};
-  let array = [];
+function countKeys(yourArray, array=[]) {
+  // let array = [];
 
 //something is wrong here
   yourArray.forEach(function(obj) {
       if (obj.mood && obj.mood != '' && obj.mood.length > 0) {
-        console.log(obj.mood);
         // const object = {'mood': 'happy', 'value': 45}
        for (var i = 0; i < array.length + 1; i++) {
           if (array[i] && obj.mood === array[i].mood  ) {
