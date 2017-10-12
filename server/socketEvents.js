@@ -2,7 +2,7 @@ exports = module.exports = function (io) {
   // Set socket.io listeners.
   io.on('connection', (socket) => {
     console.log('a user connected');
-
+    //why does this log so many times?
   socket.on('chat message', (conversation) => {
     console.log('pumpkin', conversation);
     socket.emit('refresh messages', conversation);
@@ -36,7 +36,7 @@ exports = module.exports = function (io) {
     // });
 
     socket.on('disconnect', () => {
-      // console.log('user disconnected');
+      console.log('user disconnected');
     });
   });
 };

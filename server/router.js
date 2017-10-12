@@ -81,7 +81,7 @@ module.exports = function (app) {
   // app.use('/api', apiRoutes);
   app.post('/api', EntryController.addEntry);
 
-  app.get('/entries', EntryController.findAllEntries);
+  app.get('/dashboard', EntryController.findAllEntries);
 
 
 

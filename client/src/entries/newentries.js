@@ -1,9 +1,6 @@
 import axios from 'axios';
 import * as io from 'socket.io-client'; 
 var socket = io('http://localhost:3000'); 
-// import cookie from 'react-cookie';
-// import { logoutUser } from './auth';
-// import { STATIC_ERROR, FETCH_USER } from './types';
 export const API_URL = 'http://localhost:3000';
 export const CLIENT_ROOT_URL = 'http://localhost:8080';
 
@@ -30,27 +27,17 @@ export default (state = initialState, action) => {
         pieData: action.moodCount
       }
     case 'REALTIME_REFRESH':
-      // console.log(state);
       console.log(action);
       let pieData = countKeys(action.payload, state.pieData.map(a => ({...a})));
       console.log(pieData);
       return {
         ...state,
         pieData: pieData
-        // pieData: moodCount
       }
     default:
       return state
   }
 }
-
-
-
-const testData = [
-  {mood: "happy", value: 5},
-  {mood: "confused", value: 10},
-  {mood: "sad", value: 20}
-];
 
 export const refreshData = () => {
   return (dispatch) => {
@@ -89,7 +76,7 @@ export const sendEntry = (entries) => {
 export const findAll = (entries) => {
    console.log('banana');
   return (dispatch) => {
-    axios.get(`${API_URL}/entries`)
+    axios.get(`${API_URL}/dashboard`)
       .then((response) => {
         console.log(response);
 
@@ -112,7 +99,7 @@ function countKeys(yourArray, array=[]) {
 
 //something is wrong here
   yourArray.forEach(function(obj) {
-      if (obj.mood && obj.mood != '' && obj.mood.length > 0) {
+      if (obj.mood && obj.mood !== '' && obj.mood.length > 0) {
         // const object = {'mood': 'happy', 'value': 45}
        for (var i = 0; i < array.length + 1; i++) {
           if (array[i] && obj.mood === array[i].mood  ) {
@@ -129,37 +116,6 @@ function countKeys(yourArray, array=[]) {
   });
   return array;
 }
-//let innerObj = array[i];
-          // if (!innerObj) {
-          //   return;
-          // }
-          // console.log(innerObj.mood);
-          // if (innerObj.mood === obj.mood) {
-          //   innerObj.value++;
-          //   break;
-          // } else if (array.length === i + 1) {
-          //   array.push({'mood': obj.mood, 'value': 1});
-          //   break;
-          // }
-// function countKeys(yourArray) {
-//   let counter = {};
-
-//   yourArray.forEach(function(obj) {
-//       if (obj.mood && obj.mood != '' && obj.mood.length > 0) {
-//         var key = JSON.stringify(obj.mood);
-//         console.log(key);
-//         counter[key] = (counter[key] || 0) + 1;
-//       }
-//   });
-//   var op = [];
-//   Object.keys(counter).forEach(function(key) {
-//     var obj = {};
-//     obj[key] = counter[key];
-//     op.push(obj); //push newly created object in `op`array
-//   });
-//   console.log(op);
-//   return op;
-// }
 
 
 

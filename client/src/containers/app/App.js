@@ -3,17 +3,6 @@ import { Route, Link } from 'react-router-dom'
 import Home from '../home/Home';
 import About from '../about/About';
 import Dashboard from '../dashboard/Dashboard';
-import Stock from '../stock/Stock';
-// import * as io from 'socket.io-client'; 
-// var socket = io('http://localhost:3000'); 
-
-// socket.on('connect', function(){   
-//   console.log('connect');
-//   socket.emit('chat message', 'hello world');
-//   socket.on('refresh messages', function(message) {
-//     console.log('strawberry', message);
-//   });
-// });
 
 
 const App = () => (

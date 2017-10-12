@@ -11,14 +11,15 @@
 #### 3 collection approach
 #### emojis for moods/activities
 
-#### authentication 
+#### authentication SOONY
 
-#### wireframing
+#### wireframing MEH
 
-### socket.io
+### socket.io DONE
 ### deployment
 ### tests
-
+### reactnative netview
+### mongo cloud
 
 #### Client side
 	* Design

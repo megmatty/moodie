@@ -1,16 +1,8 @@
 import React, { Component }  from 'react';
-import ReactDOM from "react-dom";
-import { Link } from 'react-router-dom'
 import { sendEntry } from '../../entries/newentries';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
-
-import * as io from 'socket.io-client'; 
-var socket = io('http://localhost:3000'); 
-
-
-
 
 class Entries extends Component {
 	constructor(props) {
@@ -22,22 +14,10 @@ class Entries extends Component {
 		}
 	}
 
-	componentDidMount() {
-		// socket.on('connect', function(){   
-		//   console.log('connect');
-		//   socket.emit('add entry', Date.now(), 'pine forest');
-		  // socket.on('new entry', function(message) {
-		  //   console.log('strawberry', message);
-		  // });
-		// });
-	}
-
 	handleSubmit = (formSubmitEvent) => {
 		formSubmitEvent.preventDefault();
 		this.props.sendEntry(this.state);
 		this.props.changePage();
-		// socket.emit('add entry', Date.now(), 'pine forest');
-		// this.props.refreshData();
 	}
 
 	handleSelect = (changeEvent) => {
