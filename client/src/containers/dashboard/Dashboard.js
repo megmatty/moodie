@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 // import { push } from 'react-router-redux';
 import { findAll, refreshData } from '../../entries/newentries';
 import SimplePieChart from './SimplePieChart';
+import SimpleBarChart from './SimpleBarChart';
 import Log from './Log';
 
 
@@ -26,6 +27,7 @@ class Dashboard extends Component {
 		return(
 			<div>
 				<SimplePieChart pie={this.props.pieData}/>
+				<SimpleBarChart bar={this.props.barData}/>
 				<Log data={this.props.entries}/>
 			</div>
 		);
@@ -36,7 +38,8 @@ class Dashboard extends Component {
 
 const mapStateToProps = state => ({
   entries: state.newentries.entries,
-  pieData: state.newentries.pieData
+  pieData: state.newentries.pieData,
+  barData: state.newentries.barData
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({

@@ -24,15 +24,19 @@ export default (state = initialState, action) => {
       return {
         ...state,
         entries: action.payload.entries,
-        pieData: action.moodCount
+        pieData: action.moodCount,
+        barData: action.barData
       }
     case 'REALTIME_REFRESH':
       console.log(action);
-      let pieData = countKeys(action.payload, state.pieData.map(a => ({...a})));
-      console.log(pieData);
+      console.log('pineapple');
+      let pieData = countKeys(action.payload, "mood", state.pieData.map(a => ({...a})));
+      let barData = countKeys(action.payload, "activity", state.barData.map(a => ({...a})));
+      console.log(barData);
       return {
         ...state,
-        pieData: pieData
+        pieData: pieData,
+        barData: barData
       }
     default:
       return state
@@ -80,12 +84,14 @@ export const findAll = (entries) => {
       .then((response) => {
         console.log(response);
 
-        let moodCount = countKeys(response.data.entries);
+        let moodCount = countKeys(response.data.entries, "mood");
+        let barData = countKeys(response.data.entries, "activity");
         console.log(moodCount);
           dispatch({
             type: 'FIND_ALL',
             payload: response.data,
-            moodCount: moodCount
+            moodCount: moodCount,
+            barData: barData
           })
       })
     .catch(function (error) {
@@ -94,30 +100,34 @@ export const findAll = (entries) => {
   }
 }
 
-function countKeys(yourArray, array=[]) {
+function countKeys(yourArray, key, array=[]) {
   // let array = [];
-
+  console.log(yourArray);
 //something is wrong here
   yourArray.forEach(function(obj) {
-      if (obj.mood && obj.mood !== '' && obj.mood.length > 0) {
+      if (obj[key] && obj[key] !== '' && obj[key].length > 0) {
         // const object = {'mood': 'happy', 'value': 45}
        for (var i = 0; i < array.length + 1; i++) {
-          if (array[i] && obj.mood === array[i].mood  ) {
+          if (array[i] && obj[key] === array[i][key]  ) {
             array[i].value++;
             break;
           }
           if (array.length === i) {
-            array.push({'mood': obj.mood, 'value': 1});
+            array.push({[key]: obj[key], 'value': 1});
             break;
           }
        } 
 
       }
   });
+  console.log(array);
   return array;
 }
 
-
+function createBarData(entries, array=[]) {
+  console.log(entries);
+  countKeys(entries, "activity");
+}
 
 
 

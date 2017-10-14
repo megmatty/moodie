@@ -10,13 +10,16 @@ class Entries extends Component {
 		this.state = {
 			mood: '',
 			activity: '',
-			journal: ''
+			journal: '',
+			date: ''
 		}
 	}
 
 	handleSubmit = (formSubmitEvent) => {
 		formSubmitEvent.preventDefault();
-		this.props.sendEntry(this.state);
+		let entry = this.state;
+		entry.date = Date.now();
+		this.props.sendEntry(entry);
 		this.props.changePage();
 	}
 
