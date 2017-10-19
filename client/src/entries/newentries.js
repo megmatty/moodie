@@ -4,16 +4,12 @@ var socket = io('http://localhost:3000');
 export const API_URL = 'http://localhost:3000';
 export const CLIENT_ROOT_URL = 'http://localhost:8080';
 
-
-
-
 const initialState = {
   user: 0
 }
 
 //reducer
 export default (state = initialState, action) => {
-  console.log(action);
   switch (action.type) {
     case 'INCREMENT':
       return {
@@ -99,6 +95,32 @@ export const findAll = (entries) => {
     });
   }
 }
+
+//get user
+export const getUser = (entries) => {
+   console.log('papaya');
+  return (dispatch) => {
+    axios.get(`${API_URL}/profile`)
+      .then((response) => {
+        console.log(response);
+
+        let moodCount = countKeys(response.data.entries, "mood");
+        let barData = countKeys(response.data.entries, "activity");
+        console.log(moodCount);
+          dispatch({
+            type: 'FIND_ALL',
+            payload: response.data,
+            moodCount: moodCount,
+            barData: barData
+          })
+      })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+}
+
+
 
 function countKeys(yourArray, key, array=[]) {
   // let array = [];

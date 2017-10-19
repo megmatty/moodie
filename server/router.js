@@ -42,10 +42,11 @@ module.exports = function (app) {
   apiRoutes.use('/auth', authRoutes);
 
   // Registration route
-  authRoutes.post('/register', AuthenticationController.register);
+  app.post('/auth/register', AuthenticationController.register);
+  // app.post('/auth/register', function() {console.log('plum')});
 
   // Login route
-  authRoutes.post('/login', requireLogin, AuthenticationController.login);
+  app.post('/auth/login', requireLogin, AuthenticationController.login);
 
   // Password reset request route (generate/send token)
   authRoutes.post('/forgot-password', AuthenticationController.forgotPassword);
@@ -82,6 +83,9 @@ module.exports = function (app) {
   app.post('/api', EntryController.addEntry);
 
   app.get('/dashboard', EntryController.findAllEntries);
+
+  app.get('/profile', requireLogin, EntryController.findUser);
+
 
 
 

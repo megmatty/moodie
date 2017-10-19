@@ -19,6 +19,8 @@ function generateToken(user) {
 // Login Route
 //= =======================================
 exports.login = function (req, res, next) {
+  console.log('inside blueberry');
+  console.log(req.user);
   const userInfo = setUserInfo(req.user);
 
   res.status(200).json({
@@ -32,6 +34,8 @@ exports.login = function (req, res, next) {
 // Registration Route
 //= =======================================
 exports.register = function (req, res, next) {
+  console.log('cherry');
+  console.log(req.body);
   // Check for registration errors
   const email = req.body.email;
   const firstName = req.body.firstName;

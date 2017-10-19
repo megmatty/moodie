@@ -22,4 +22,18 @@ exports.findAllEntries = function(req, res, next) {
 	})
 }
 
+//Get User
+exports.findUser = function(req, res, next) {
+	console.log(req.user);
+	console.log('raspberry');
+	Entry.find({})
+		.exec((err, entries) => {
+	    if (err) {
+	      res.send({ error: err });
+	      return next(err);
+	    }
+	    return res.status(200).json({ entries: entries });
+	})
+}
+
 

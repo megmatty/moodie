@@ -11,7 +11,11 @@ class Entries extends Component {
 			mood: '',
 			activity: '',
 			journal: '',
-			date: ''
+			date: '',
+			location: {
+				lat: '',
+				long: ''
+			}
 		}
 	}
 
@@ -19,8 +23,21 @@ class Entries extends Component {
 		formSubmitEvent.preventDefault();
 		let entry = this.state;
 		entry.date = Date.now();
-		this.props.sendEntry(entry);
-		this.props.changePage();
+		let t = this;
+		//not the best implementation, revisit this
+	  if (navigator.geolocation) {
+	    navigator.geolocation.getCurrentPosition(function(position) {
+	    	console.log(position);
+	    	console.log(position.coords);
+	    	entry.location.lat = position.coords.latitude;
+	    	entry.location.long = position.coords.longitude;
+	    	t.props.sendEntry(entry);
+				t.props.changePage();
+	    });
+	  } else {
+	  	t.props.sendEntry(entry);
+			t.props.changePage();
+	  }
 	}
 
 	handleSelect = (changeEvent) => {

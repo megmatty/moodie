@@ -5,7 +5,8 @@ const EntrySchema = new Schema({
     mood: String,
     activity: String,
     journal: String,
-    date: String
+    date: String,
+    location: Object
 });
 
 module.exports = mongoose.model('Entry', EntrySchema);
