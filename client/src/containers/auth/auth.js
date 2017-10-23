@@ -9,17 +9,17 @@ const INITIAL_STATE = { error: '', message: '', content: '', authenticated: fals
 
 // export const AUTH_USER = 'auth_user';
 
-export function registerUser({ email, firstName, lastName, password }) {
+export function registerUser({ email, username, password }) {
   console.log('action called');
   return (dispatch) => {
     console.log('inside dispatch');
-    axios.post(`${API_URL}/auth/register`, { email, firstName, lastName, password })
+    axios.post(`${API_URL}/register`, { email, username, password })
     .then((response) => {
       console.log(response);
       // cookie.save('token', response.data.token, { path: '/' });
       // cookie.save('user', response.data.user, { path: '/' });
       dispatch({ type: 'auth_user' });
-      window.location.href = `${CLIENT_ROOT_URL}/dashboard`;
+      // window.location.href = `${CLIENT_ROOT_URL}/dashboard`;
     })
     .catch((error) => {
       // errorHandler(dispatch, error.response, AUTH_ERROR);
@@ -31,12 +31,12 @@ export function registerUser({ email, firstName, lastName, password }) {
 //Login user
 export function loginUser({ email, password }) {
   return function (dispatch) {
-    axios.post(`${API_URL}/auth/login`, { email, password })
+    axios.post(`${API_URL}/login`, { email, password })
     .then((response) => {
       // cookie.save('token', response.data.token, { path: '/' });
       // cookie.save('user', response.data.user, { path: '/' });
       dispatch({ type: 'auth_user' });
-      window.location.href = `${CLIENT_ROOT_URL}/dashboard`;
+      // window.location.href = `${CLIENT_ROOT_URL}/dashboard`;
     })
     .catch((error) => {
       // errorHandler(dispatch, error.response, AUTH_ERROR);

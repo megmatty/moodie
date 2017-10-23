@@ -103,7 +103,6 @@ export const getUser = (entries) => {
     axios.get(`${API_URL}/profile`)
       .then((response) => {
         console.log(response);
-
         let moodCount = countKeys(response.data.entries, "mood");
         let barData = countKeys(response.data.entries, "activity");
         console.log(moodCount);

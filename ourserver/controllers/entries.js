@@ -12,14 +12,14 @@ exports.addEntry = function(req, res, next) {
 
 //Find All Entries
 exports.findAllEntries = function(req, res, next) {
-	console.log('olive');
-	console.log(req.user);
 	Entry.find({})
 		.exec((err, entries) => {
 	    if (err) {
 	      res.send({ error: err });
 	      return next(err);
 	    }
+	    	console.log(req.user);
+	console.log('peanut butter');
 	    return res.status(200).json({ entries: entries });
 	})
 }

@@ -15,8 +15,8 @@ class Profile extends Component {
 
 	componentWillMount() {
 		// this.props.findAll();
-		this.props.refreshData();
 		this.props.getUser();
+		this.props.refreshData();
 	}
 
 

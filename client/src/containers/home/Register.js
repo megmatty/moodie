@@ -6,17 +6,13 @@ import { registerUser } from '../auth/auth';
 class Register extends Component {
 
   render() {
-    const {fields: {firstName, lastName, email, password}, handleSubmit} = this.props;
+    const {fields: {username, email, password}, handleSubmit} = this.props;
 
     return (
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="firstName">First Name</label>
-          <Field name="firstName" component="input" type="text" />
-        </div>
-        <div>
-          <label htmlFor="lastName">Last Name</label>
-          <Field name="lastName" component="input" type="text" />
+          <label htmlFor="username">User Name</label>
+          <Field name="username" component="input" type="text" />
         </div>
         <div>
           <label htmlFor="email">Email</label>
@@ -35,7 +31,7 @@ class Register extends Component {
 // Decorate the form component
 export default reduxForm({
   form: 'contact', // a unique name for this form
-  fields: ['firstName', 'lastName', 'email', 'password']
+  fields: ['username', 'email', 'password']
 })(Register);
 
 
