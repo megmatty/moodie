@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "start": "nodemon ./bin/www",
-    "test": "make test"
+    "test": "make test",
+    "dev": "nodemon app.js"
+
   },
   "repository": {
     "type": "git",

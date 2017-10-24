@@ -22,12 +22,15 @@ class Profile extends Component {
 
 	render() {
 		if (!this.props.entries) {
-			return <div>Loading...</div>;
+			return <div>
+				<p>{this.props.user.username}</p>
+				
+				Loading...</div>;
 		}
 
 		return(
 			<div>
-				<p>this is where the name goes</p>
+				<p>{this.props.user.username}</p>
 				<SimplePieChart pie={this.props.pieData}/>
 				<SimpleBarChart bar={this.props.barData}/>
 				<Log data={this.props.entries}/>
@@ -41,7 +44,9 @@ class Profile extends Component {
 const mapStateToProps = state => ({
   entries: state.newentries.entries,
   pieData: state.newentries.pieData,
-  barData: state.newentries.barData
+  barData: state.newentries.barData,
+  user: state.newentries.user
+      
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({

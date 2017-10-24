@@ -25,8 +25,9 @@ router.get('/register', (req, res) => {
 });
 
 router.post('/register', (req, res, next) => {
+    console.log('tomato'); 
     console.log(req.body);
-    Account.register(new Account({ username : req.body.username }), req.body.password, (err, account) => {
+    Account.register(new Account({ username : req.body.username, email: req.body.email }), req.body.password, (err, account) => {
         if (err) {
             console.log(err);
             return;
@@ -45,14 +46,25 @@ router.post('/register', (req, res, next) => {
 
 
 router.get('/login', (req, res) => {
+    console.log('squash', req.user) 
+	//res.end(); 
     res.render('login', { user : req.user, error : req.flash('error')});
 });
 
 router.post('/login', passport.authenticate('local', { failureRedirect: '/login', failureFlash: true }), (req, res, next) => {
+//
+//router.post('/login', (req, res) => {
+
+
+
     req.session.save((err) => {
-        if (err) {
+	if (err) {
+		console.log(err)
             return next(err);
-        }
+	}
+       console.log('cucumber', req.user) 
+       return res.status(200).json({ user: req.user });
+
         res.redirect('/');
     });
 });

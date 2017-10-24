@@ -34,7 +34,9 @@ class Home extends Component {
 const mapStateToProps = state => ({
   count: state.counter.count,
   isIncrementing: state.counter.isIncrementing,
-  isDecrementing: state.counter.isDecrementing
+  isDecrementing: state.counter.isDecrementing,
+  user: state.newentries.user
+
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({

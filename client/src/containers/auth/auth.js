@@ -10,16 +10,15 @@ const INITIAL_STATE = { error: '', message: '', content: '', authenticated: fals
 // export const AUTH_USER = 'auth_user';
 
 export function registerUser({ email, username, password }) {
-  console.log('action called');
+  console.log('registerUser');
   return (dispatch) => {
-    console.log('inside dispatch');
     axios.post(`${API_URL}/register`, { email, username, password })
     .then((response) => {
       console.log(response);
       // cookie.save('token', response.data.token, { path: '/' });
       // cookie.save('user', response.data.user, { path: '/' });
       dispatch({ type: 'auth_user' });
-      // window.location.href = `${CLIENT_ROOT_URL}/dashboard`;
+      window.location.href = `${CLIENT_ROOT_URL}/profile`;
     })
     .catch((error) => {
       // errorHandler(dispatch, error.response, AUTH_ERROR);
@@ -29,14 +28,23 @@ export function registerUser({ email, username, password }) {
 }
 
 //Login user
-export function loginUser({ email, password }) {
-  return function (dispatch) {
-    axios.post(`${API_URL}/login`, { email, password })
+/*export function loginUser({ username, password }) {
+  console.log('loginUser ',username, password);
+	
+  return function (dispatch) {*/
+
+export const loginUser = ({ username, password }) => {
+  return (dispatch) => {
+
+    axios.post(`${API_URL}/login`, { username, password })
     .then((response) => {
-      // cookie.save('token', response.data.token, { path: '/' });
+      
+	console.log('apple ',response)
+    // cookie.save('token', response.data.token, { path: '/' });
       // cookie.save('user', response.data.user, { path: '/' });
-      dispatch({ type: 'auth_user' });
-      // window.location.href = `${CLIENT_ROOT_URL}/dashboard`;
+      dispatch({ type: 'USER', payload:response });
+      //window.location.href = `${CLIENT_ROOT_URL}/profile`;
+
     })
     .catch((error) => {
       // errorHandler(dispatch, error.response, AUTH_ERROR);
@@ -45,6 +53,9 @@ export function loginUser({ email, password }) {
   };
 }
 
+
+
+
 //reducer
 
 export default (state = INITIAL_STATE, action) => {
@@ -52,6 +63,10 @@ export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case 'auth_user':
       return { ...state, error: '', message: '', authenticated: true };
+    case 'show_user':
+	console.log(action) 
+      return { ...state, error: '', message: '', authenticated: true };
+
     // case UNAUTH_USER:
     //   return { ...state, authenticated: false, error: action.payload };
     // case AUTH_ERROR:

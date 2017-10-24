@@ -34,6 +34,12 @@ export default (state = initialState, action) => {
         pieData: pieData,
         barData: barData
       }
+    case 'USER':
+      console.log('USER', action);
+	return{
+	...state,
+	user:action.payload.data.user
+	}
     default:
       return state
   }

@@ -14,6 +14,31 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
+var socketEvents = require('./socketEvents'); 
+
+/*
+var server  = require('http').createServer(app);
+
+var io     = require('socket.io').listen(server);
+
+console.log('hi', app.get('port'));
+
+server.listen(app.get('port')); // not 'app.listen'!
+
+*/
+// Start the server
+let server;
+server = app.listen(3000);
+
+
+
+const io = require('socket.io').listen(server);
+
+socketEvents(io);
+
+
+
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

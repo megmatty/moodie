@@ -5,13 +5,13 @@ import { Field, reduxForm } from 'redux-form';
 class Login extends Component {
 
   render() {
-    const {fields: { email, password}, handleSubmit } = this.props;
+    const {fields: { username, password}, handleSubmit } = this.props;
 
     return (
       <form onSubmit={ handleSubmit }>
         <div>
-          <label htmlFor="email">Email</label>
-          <Field name="email" component="input" type="email" />
+          <label htmlFor="username">Username</label>
+          <Field name="username" component="input" type="text" />
         </div>
         <div>
           <label htmlFor="password">Password</label>
@@ -26,6 +26,6 @@ class Login extends Component {
 // Decorate the form component
 export default reduxForm({
   form: 'contact', // a unique name for this form
-  fields: ['email', 'password']
+  fields: ['username', 'password']
 })(Login);
 
