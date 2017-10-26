@@ -24,6 +24,8 @@ class Entries extends Component {
 		let entry = this.state;
 		entry.date = Date.now();
 		let t = this;
+		console.log(this.props._id);
+		entry.userId = this.props.user._id;
 		//not the best implementation, revisit this
 	  if (navigator.geolocation) {
 	    navigator.geolocation.getCurrentPosition(function(position) {
@@ -62,6 +64,7 @@ class Entries extends Component {
 		return(
 			<div>
 		    <h1>New Entry</h1>
+		    <p>Hello, {this.props.user.username}</p>
 		    <form onSubmit={this.handleSubmit}>
 		    	<fieldset>
 			    	<label>Happy</label>
@@ -93,7 +96,7 @@ class Entries extends Component {
 
 
 const mapStateToProps = state => ({
-  // mood: state.newentries.mood
+  user: state.newentries.user
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({

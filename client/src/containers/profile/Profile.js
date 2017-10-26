@@ -1,4 +1,5 @@
 import React, { Component }  from 'react';
+import { push } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 // import { push } from 'react-router-redux';
@@ -52,8 +53,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => bindActionCreators({
   findAll,
   refreshData,
-  getUser
-  // changePage: () => push('/dashboard')
+  getUser,
+  // changePage: () => push('/profile')
 }, dispatch)
 
 export default connect(

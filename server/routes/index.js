@@ -11,7 +11,14 @@ router.get('/', (req, res) => {
 router.get('/profile', (req, res) => {
     console.log('peach');
     console.log(req.user);
-    return res.status(200).json({ user: req.user });
+    Entry.find({})
+        .exec((err, entries) => {
+        if (err) {
+          res.send({ error: err });
+          return next(err);
+        }
+        return res.status(200).json({ entries: entries });
+    })
 });
 
 
@@ -38,7 +45,8 @@ router.post('/register', (req, res, next) => {
                 if (err) {
                     return next(err);
                 }
-                res.redirect('/');
+                console.log('clementine', account, account.username);
+                return res.status(200).json({ user: account });
             });
         });
     });
@@ -55,8 +63,6 @@ router.post('/login', passport.authenticate('local', { failureRedirect: '/login'
 //
 //router.post('/login', (req, res) => {
 
-
-
     req.session.save((err) => {
 	if (err) {
 		console.log(err)
@@ -65,7 +71,7 @@ router.post('/login', passport.authenticate('local', { failureRedirect: '/login'
        console.log('cucumber', req.user) 
        return res.status(200).json({ user: req.user });
 
-        res.redirect('/');
+        // res.redirect('/');
     });
 });
 

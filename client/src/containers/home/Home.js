@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
-import { push } from 'react-router-redux'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
+import React, { Component } from 'react';
+import { push } from 'react-router-redux';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import Register from './Register';
 import Login from './Login';
 import { registerUser, loginUser } from '../auth/auth';
@@ -9,13 +9,13 @@ import { registerUser, loginUser } from '../auth/auth';
 class Home extends Component {
 
   register = (values) => {
-    console.log(values);
-    console.log(this);
     this.props.registerUser(values);
+    this.props.changePage();
   }
 
   login = (values) => {
     this.props.loginUser(values);
+    this.props.changePage();
   }
 
   render() {
@@ -41,7 +41,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   registerUser,
-  loginUser
+  loginUser,
+  changePage: () => push('/profile')
 }, dispatch)
 
 export default connect(

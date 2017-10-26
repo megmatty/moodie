@@ -6,7 +6,8 @@ const EntrySchema = new Schema({
     activity: String,
     journal: String,
     date: String,
-    location: Object
+    location: Object,
+    userId: String
 });
 
 module.exports = mongoose.model('Entry', EntrySchema);

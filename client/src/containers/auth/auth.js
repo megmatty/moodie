@@ -17,8 +17,8 @@ export function registerUser({ email, username, password }) {
       console.log(response);
       // cookie.save('token', response.data.token, { path: '/' });
       // cookie.save('user', response.data.user, { path: '/' });
-      dispatch({ type: 'auth_user' });
-      window.location.href = `${CLIENT_ROOT_URL}/profile`;
+      dispatch({ type: 'USER', payload:response });
+      // window.location.href = `${CLIENT_ROOT_URL}/profile`;
     })
     .catch((error) => {
       // errorHandler(dispatch, error.response, AUTH_ERROR);
