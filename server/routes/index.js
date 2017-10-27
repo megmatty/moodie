@@ -3,6 +3,8 @@ const passport = require('passport');
 const Account = require('../models/account');
 const router = express.Router();
 const EntryController = require('../controllers/entries');
+const Entry = require('../models/entries');
+
 
 router.get('/', (req, res) => {
     res.render('index', { user : req.user });
@@ -11,14 +13,15 @@ router.get('/', (req, res) => {
 router.get('/profile', (req, res) => {
     console.log('peach');
     console.log(req.user);
-    Entry.find({})
+    /*Entry.find({})
         .exec((err, entries) => {
         if (err) {
           res.send({ error: err });
           return next(err);
         }
         return res.status(200).json({ entries: entries });
-    })
+	})*/
+    
 });
 
 
@@ -68,8 +71,24 @@ router.post('/login', passport.authenticate('local', { failureRedirect: '/login'
 		console.log(err)
             return next(err);
 	}
-       console.log('cucumber', req.user) 
-       return res.status(200).json({ user: req.user });
+	console.log('cucumber', req.user)
+
+
+
+	    Entry.find({'userId':req.user._id})
+		.exec((err, entries) => {
+		if (err) {
+		  res.send({ error: err });
+		  return next(err);
+		}
+		//return res.status(200).json({ entries: entries });
+	       return res.status(200).json({ user: req.user, entries: entries });
+		
+	    })
+		
+
+
+       //return res.status(200).json({ user: req.user });
 
         // res.redirect('/');
     });
