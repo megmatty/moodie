@@ -1,10 +1,10 @@
 import React, { Component }  from 'react';
-import { sendEntry } from '../../entries/newentries';
+import { sendEntry } from '../../actions/actions';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 
-class Entries extends Component {
+class Addnew extends Component {
 	constructor(props) {
 		super();
 		this.state = {
@@ -96,7 +96,7 @@ class Entries extends Component {
 
 
 const mapStateToProps = state => ({
-  user: state.newentries.user
+  user: state.entries.user
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
@@ -107,4 +107,4 @@ const mapDispatchToProps = dispatch => bindActionCreators({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Entries);
+)(Addnew);

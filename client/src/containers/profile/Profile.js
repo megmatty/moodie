@@ -3,7 +3,7 @@ import { push } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 // import { push } from 'react-router-redux';
-import { findAll, refreshData, getUser } from '../../entries/newentries';
+import { findAll, refreshData, getUser } from '../../actions/actions';
 import SimplePieChart from '../dashboard/SimplePieChart';
 import SimpleBarChart from '../dashboard/SimpleBarChart';
 import Log from '../dashboard/Log';
@@ -16,6 +16,8 @@ class Profile extends Component {
 
 	componentWillMount() {
 		// this.props.findAll();
+		console.log(this.props);
+		console.log(this.state);
 		this.props.getUser();
 		this.props.refreshData();
 	}
@@ -43,11 +45,10 @@ class Profile extends Component {
 
 
 const mapStateToProps = state => ({
-  entries: state.newentries.entries,
-  pieData: state.newentries.pieData,
-  barData: state.newentries.barData,
-  user: state.newentries.user
-      
+  entries: state.entries.entries,
+  pieData: state.entries.pieData,
+  barData: state.entries.barData,
+  user: state.entries.user
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({

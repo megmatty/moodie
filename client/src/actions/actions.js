@@ -4,46 +4,6 @@ var socket = io('http://localhost:3000');
 export const API_URL = 'http://localhost:3000';
 export const CLIENT_ROOT_URL = 'http://localhost:8080';
 
-const initialState = {
-  user: 0
-}
-
-//reducer
-export default (state = initialState, action) => {
-  switch (action.type) {
-    case 'INCREMENT':
-      return {
-        ...state,
-        mood: state.user + 1
-      }
-    case 'FIND_ALL':
-      return {
-        ...state,
-        entries: action.payload.entries,
-        pieData: action.moodCount,
-        barData: action.barData
-      }
-    case 'REALTIME_REFRESH':
-      console.log(action);
-      console.log('pineapple');
-      let pieData = countKeys(action.payload, "mood", state.pieData.map(a => ({...a})));
-      let barData = countKeys(action.payload, "activity", state.barData.map(a => ({...a})));
-      console.log(barData);
-      return {
-        ...state,
-        pieData: pieData,
-        barData: barData
-      }
-    case 'USER':
-      console.log('USER', action);
-	return{
-	...state,
-	user:action.payload.data.user
-	}
-    default:
-      return state
-  }
-}
 
 export const refreshData = () => {
   return (dispatch) => {
@@ -62,7 +22,6 @@ export const refreshData = () => {
 
 //action
 export const sendEntry = (entries) => {
-  console.log('hired');
   return (dispatch) => {
     axios.post(`${API_URL}/api`, {
       'entries': entries 
@@ -127,7 +86,7 @@ export const getUser = (entries) => {
 
 
 
-function countKeys(yourArray, key, array=[]) {
+export function countKeys(yourArray, key, array=[]) {
   // let array = [];
   console.log(yourArray);
 //something is wrong here
@@ -155,13 +114,3 @@ function createBarData(entries, array=[]) {
   console.log(entries);
   countKeys(entries, "activity");
 }
-
-
-
-
-
-
-
-
-
-

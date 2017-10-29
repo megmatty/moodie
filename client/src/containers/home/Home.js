@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Register from './Register';
 import Login from './Login';
-import { registerUser, loginUser } from '../auth/auth';
+import { registerUser, loginUser } from '../../actions/auth';
 
 class Home extends Component {
 
@@ -32,11 +32,7 @@ class Home extends Component {
 }
 
 const mapStateToProps = state => ({
-  count: state.counter.count,
-  isIncrementing: state.counter.isIncrementing,
-  isDecrementing: state.counter.isDecrementing,
-  user: state.newentries.user
-
+  user: state.entries.user
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({

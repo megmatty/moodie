@@ -1,21 +1,27 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { Route, Link } from 'react-router-dom'
+import Home from './containers/home/Home';
+import Addnew from './containers/Addnew/Addnew';
+import Dashboard from './containers/dashboard/Dashboard';
+import Profile from './containers/profile/Profile';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to HIHI</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
-}
 
-export default App;
+const App = () => (
+  <div>
+    <header>
+      <Link to="/">Home</Link><br />
+      <Link to="/addnew">Add New Entry</Link><br />
+      <Link to="/dashboard">Dashboard</Link><br />
+      <Link to="/profile">Profile</Link><br />
+    </header>
+
+    <main>
+      <Route exact path="/" component={Home} />
+      <Route exact path="/addnew" component={Addnew} />
+      <Route exact path="/dashboard" component={Dashboard} />
+      <Route exact path="/profile" component={Profile} />
+    </main>
+  </div>
+)
+
+export default App
