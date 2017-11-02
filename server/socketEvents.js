@@ -3,15 +3,15 @@ exports = module.exports = function (io) {
   io.on('connection', (socket) => {
     console.log('a user connected');
     //why does this log so many times?
-  socket.on('chat message', (conversation) => {
-    console.log('pumpkin', conversation);
-    socket.emit('refresh messages', conversation);
-    // console.log('joined ' + conversation);
-  });
+  // socket.on('chat message', (conversation) => {
+  //   console.log('pumpkin', conversation);
+  //   socket.emit('refresh messages', conversation);
+  //   // console.log('joined ' + conversation);
+  // });
 
-  socket.on('add entry', (conversation) => {
-    console.log('desert shade', conversation);
-    io.emit('new entry', conversation);
+  socket.on('add entry', (entry) => {
+    console.log('desert shade', entry);
+    io.emit('new entry', entry);
     // console.log('joined ' + conversation);
   });
 

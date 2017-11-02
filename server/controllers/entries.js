@@ -1,4 +1,4 @@
-const Entry = require('../models/entries');
+const Entry = require('../app/models/entries');
 
 //Add Entry
 exports.addEntry = function(req, res, next) {
@@ -7,7 +7,7 @@ exports.addEntry = function(req, res, next) {
   let entry = new Entry(req.body.entries);
   console.log(entry);
   entry.save();
-  return res.status(200).json({ message: 'happy happy' });
+  return res.status(200).json({message: 'return this for socket.io'});
 };
 
 //Find All Entries

@@ -6,14 +6,10 @@ import { registerUser } from '../../actions/auth';
 class Register extends Component {
 
   render() {
-    const {fields: {username, email, password}, handleSubmit} = this.props;
+    const {fields: {email, password}, handleSubmit} = this.props;
 
     return (
       <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="username">User Name</label>
-          <Field name="username" component="input" type="text" />
-        </div>
         <div>
           <label htmlFor="email">Email</label>
           <Field name="email" component="input" type="email" />

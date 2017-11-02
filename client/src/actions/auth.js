@@ -8,7 +8,7 @@ const INITIAL_STATE = { error: '', message: '', content: '', authenticated: fals
 export function registerUser({ email, username, password }) {
   console.log('registerUser');
   return (dispatch) => {
-    axios.post(`${API_URL}/register`, { email, username, password })
+    axios.post(`${API_URL}/signup`, { email, password })
     .then((response) => {
       console.log(response);
       // cookie.save('token', response.data.token, { path: '/' });

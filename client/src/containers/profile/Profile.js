@@ -18,7 +18,7 @@ class Profile extends Component {
 		// this.props.findAll();
 		console.log(this.props);
 		console.log(this.state);
-		this.props.getUser();
+		this.props.getUser(this.props.user);
 		this.props.refreshData();
 	}
 
@@ -26,14 +26,14 @@ class Profile extends Component {
 	render() {
 		if (!this.props.entries) {
 			return <div>
-				<p>{this.props.user.username}</p>
+				<p>{this.props.user.email}</p>
 				
 				Loading...</div>;
 		}
 
 		return(
 			<div>
-				<p>{this.props.user.username}</p>
+				<p>{this.props.user.email}</p>
 				<SimplePieChart pie={this.props.pieData}/>
 				<SimpleBarChart bar={this.props.barData}/>
 				<Log data={this.props.entries}/>
